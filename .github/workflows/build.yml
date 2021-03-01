@@ -32,6 +32,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CR_PAT }}
+
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
@@ -49,5 +56,8 @@ jobs:
             zachmyers3/dnd-data
             zachmyers3/dnd-data:latest-${{ steps.current-time.outputs.formattedTime }}
             zachmyers3/dnd-data:v0.0.6-alpha-${{ steps.current-time.outputs.formattedTime }}
+            ghcr.io/zachmyers3/dnd-data
+            ghcr.io/zachmyers3/dnd-data:latest-${{ steps.current-time.outputs.formattedTime }}
+            ghcr.io/zachmyers3/dnd-data:v0.0.6-alpha-${{ steps.current-time.outputs.formattedTime }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
