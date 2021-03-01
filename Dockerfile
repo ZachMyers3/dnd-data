@@ -4,7 +4,6 @@ WORKDIR /app
 COPY ./frontend/package*.json ./
 RUN npm install
 COPY ./frontend/ .
-RUN rm ./.env.local
 RUN npm run build
 
 # Setup Container and install Flask
