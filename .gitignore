@@ -1,0 +1,56 @@
+### Vue
+.DS_Store
+node_modules
+/dist
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+### FastAPI
+.DS_Store
+.env
+.flaskenv
+*.pyc
+*.pyo
+env/
+env*
+venv/
+venv*
+dist/
+build/
+*.egg
+*.egg-info/
+_mailinglist
+.tox/
+.cache/
+.pytest_cache/
+.idea/
+.vscode/
+docs/_build/
+__pycache__
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+*,cover
+
+# config
+*.yml
+.autoenv*
+.venv
