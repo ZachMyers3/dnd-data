@@ -1,14 +1,12 @@
 from typing import List
-from bson.objectid import ObjectId
-import pathlib
 import json
 
 
-from fastapi import Depends, APIRouter, HTTPException, File, UploadFile
+from fastapi import APIRouter, HTTPException, File, UploadFile
 
 from ..schema.spells import SpellSchema
 
-from ..database.spells import retrieve_spell, retrieve_spells
+from ..database.spells import retrieve_spell, retrieve_spells, insert_spells
 
 router = APIRouter()
 
@@ -26,7 +24,7 @@ def get_spell_by_id(_id: str):
     return result
 
 
-@router.post("/spells/", response_model=List[SpellSchema])
+@router.post("/spells/", response_model=None)
 def create_spells_from_file(file: UploadFile = File(...)):
     if file.content_type != "application/json":
         return HTTPException(422, detail="Must be a JSON file")
@@ -35,5 +33,10 @@ def create_spells_from_file(file: UploadFile = File(...)):
     for line in file.file:
         json_str += line.decode("utf-8")
 
-    json_dict = json.loads(json_str)
-    print(json_dict)
+    loaded_json = json.loads(json_str)
+    created_json = insert_spells(loaded_json)
+
+    if len(created_json.inserted_ids) <= 0:
+        HTTPException(status_code=500, detail="Unable to insert JSON")
+
+    return
