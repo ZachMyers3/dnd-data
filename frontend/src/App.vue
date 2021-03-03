@@ -49,9 +49,9 @@ export default class App extends Vue {
     // { title: 'Encounter Builder', icon: 'sword', link: 'encounter' },
     // { title: "Characters", icon: "campfire", link: "/characters" },
     { title: "Spells", icon: "auto-fix", link: "/spells" },
-    { title: "Monsters", icon: "pine-tree", link: "/monsters" },
-    { title: "Equipment", icon: "storefront", link: "/equipment" },
-    { title: "Map", icon: "map-legend", link: "/map" },
+    // { title: "Monsters", icon: "pine-tree", link: "/monsters" },
+    // { title: "Equipment", icon: "storefront", link: "/equipment" },
+    // { title: "Map", icon: "map-legend", link: "/map" },
   ];
 }
 </script>
