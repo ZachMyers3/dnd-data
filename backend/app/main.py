@@ -1,7 +1,8 @@
 import uvicorn
 
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+# from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.cors import CORSMiddleware
 
 from .routers import spells
 from .routers import equipment
@@ -29,6 +30,7 @@ app.include_router(characters.router, prefix="/v1")
 
 app.add_middleware(
     CORSMiddleware,
+    # allow_origins=["http://localhost:8000", "http://0.0.0.0:8000", "http://0.0.0.0", "http://localhost", "http://localhost/api"],
     allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
