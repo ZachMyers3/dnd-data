@@ -26,9 +26,16 @@ app.include_router(monsters.router, prefix="/v1")
 app.include_router(skills.router, prefix="/v1")
 app.include_router(characters.router, prefix="/v1")
 
+
+cors_origins = [
+    "http://localhost",
+    "http://localhost:8080",
+    "http://localhost:8000",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
