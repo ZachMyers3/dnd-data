@@ -15,7 +15,7 @@ app = FastAPI(
     title="DnD API",
     description=("An API for DnD data written with FastAPI and MongoDB"),
     version="0.0.1",
-    root_path="/api"
+    root_path="/api",
 )
 
 app.include_router(spells.router, prefix="/v1")
@@ -27,19 +27,14 @@ app.include_router(skills.router, prefix="/v1")
 app.include_router(characters.router, prefix="/v1")
 
 
-cors_origins = [
-    "http://localhost",
-    "http://localhost:8080",
-    "http://localhost:8000",
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=cors_origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expost_headers=["*"],
 )
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host='0.0.0.0', port=8000, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
