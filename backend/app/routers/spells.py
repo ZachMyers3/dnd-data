@@ -6,7 +6,7 @@ from fastapi import APIRouter, HTTPException, File, UploadFile
 
 from ..schema.spells import SpellSchema
 
-from ..database.spells import retrieve_spell, retrieve_spells, insert_spells
+from ..database.spells import retrieve_spell, retrieve_spells, insert_spells, delete_spell
 
 router = APIRouter()
 
@@ -40,3 +40,14 @@ def create_spells_from_file(file: UploadFile = File(...)):
         HTTPException(status_code=500, detail="Unable to insert JSON")
 
     return
+
+
+@router.delete("/spells/{_id}", response_model=None)
+def delete_spell_by_id(_id: str):
+    results = delete_spell(_id=_id)
+    return results
+
+
+@router.put("/spells/{_id}")
+def update_spell_by_object(_id: str, spell: SpellSchema):
+    pass
