@@ -92,9 +92,9 @@ export default class Spells extends Vue {
   }
 
   async getAllSpells(): Promise<void> {
-    this.loading = !this.loading;
+    // this.loading = !this.loading;
     this.spells = await SpellApi.getAllSpells();
-    this.loading = !this.loading;
+    // this.loading = !this.loading;
   }
 
   goToUpload(): void {
