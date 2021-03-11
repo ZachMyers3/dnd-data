@@ -50,11 +50,11 @@ RUN \
 	/root/.cache \
 	/tmp/*
 
-COPY root /
+COPY docker/root /
 
 # Vue
 COPY --from=build-stage /app/dist /app
-COPY nginx.conf /etc/nginx/
+COPY docker/nginx.conf /etc/nginx/
 
 # Expose
 VOLUME /config
