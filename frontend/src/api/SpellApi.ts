@@ -6,12 +6,9 @@ export abstract class SpellApi {
   private static spellAxios = axios.create();
 
   static async getAllSpells(): Promise<Spell[]> {
-    console.log(`Getting spells from ${API_URL}/spells/`);
     const response = await this.spellAxios.get<SpellDTO[]>(
       `${API_URL}/spells/`
     );
-
-    console.log(response);
 
     return response.data.map((spellDTO) => new Spell(spellDTO));
   }
