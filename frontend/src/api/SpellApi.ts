@@ -25,7 +25,7 @@ export abstract class SpellApi {
     formData.append("file", json);
     try {
       const response = await this.spellAxios.post<SpellDTO[]>(
-        `${API_URL}/spells/`,
+        `${API_URL}/spells/from_file/`,
         formData,
         {
           headers: {
