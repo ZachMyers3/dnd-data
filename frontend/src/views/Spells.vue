@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!loading">
+  <div>
     <v-card>
       <v-card-title>
         Spells
@@ -17,6 +17,8 @@
         :items="spells"
         :item-key="spells._id"
         :search="search"
+        :loading="loading"
+        loading-text="Loading..."
         dense
         show-expand
       >
@@ -52,11 +54,6 @@
       </v-card-actions>
     </v-card>
   </div>
-  <div v-else>
-    <v-overlay>
-      <v-progress-circular indeterminate size="64"></v-progress-circular>
-    </v-overlay>
-  </div>
 </template>
 
 <script lang="ts">
@@ -72,13 +69,14 @@ import ChSpellInfo from "@/components/ChSpellInfo.vue";
   },
 })
 export default class Spells extends Vue {
-  private loading = false;
+  private loading = true;
   private search = "";
   // eslint-disable-next-line
   private headers: any[] = [
     { text: "Name", value: "name" },
     { text: "Casting Time (s)", value: "castTimeString" },
     { text: "Concentration", value: "concentrationSting" },
+    { text: "Ritual", value: "ritualString" },
     { text: "Duration (s)", value: "durationsByComma" },
     { text: "Range (ft)", value: "rangeString" },
     { text: "Level", value: "level" },
@@ -92,9 +90,8 @@ export default class Spells extends Vue {
   }
 
   async getAllSpells(): Promise<void> {
-    // this.loading = !this.loading;
     this.spells = await SpellApi.getAllSpells();
-    // this.loading = !this.loading;
+    this.loading = false;
   }
 
   goToUpload(): void {
