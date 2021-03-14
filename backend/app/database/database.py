@@ -11,8 +11,4 @@ if os.environ.get("MONGODB_URI") is None:
 print(f"Connecting to MongoDB {os.environ.get('MONGODB_URI')}")
 client = MongoClient(os.environ.get("MONGODB_URI"))
 
-print(client.list_database_names())
-
 db = client["dnd"]
-
-print(db.list_collection_names())
