@@ -110,7 +110,15 @@ export default class Spell extends SpellDTO {
     if (this.casting.concentration) {
       return "✔";
     } else {
-      return "✖";
+      return "";
+    }
+  }
+
+  get ritualString(): string {
+    if (this.casting.ritual) {
+      return "✔";
+    } else {
+      return "";
     }
   }
 
