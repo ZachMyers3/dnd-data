@@ -38,6 +38,14 @@
             </td>
           </v-expand-transition>
         </template>
+        <template v-slot:[`item.level`]="{ item }">
+          <div v-if="item.level == 0">
+            cantrip
+          </div>
+          <div v-else>
+            {{ item.level }}
+          </div>
+        </template>
         <!-- <template v-slot:item.classes="{ item }">
           <div class="classes">
             <div v-for="cls in item.classes" v-bind:key="cls.class">
