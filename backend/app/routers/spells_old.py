@@ -5,26 +5,18 @@ import json
 from fastapi import APIRouter, HTTPException, File, UploadFile
 
 from ..schema.spells import SpellSchema
-from ..schema.spell import SpellData
 
-from ..database.spells import (
-    retrieve_spell,
-    retrieve_spells,
-    insert_spells,
-    insert_spell,
-    delete_spell,
-    update_spell,
-)
+from ..database.spells import retrieve_spell, retrieve_spells, insert_spells, insert_spell, delete_spell, update_spell
 
 router = APIRouter()
 
 
-@router.get("/spells/", response_model=List[SpellData])
+@router.get("/spells/", response_model=List[SpellSchema])
 def get_all_spells():
     return list(retrieve_spells())
 
 
-@router.get("/spells/{_id}/", response_model=SpellData)
+@router.get("/spells/{_id}/", response_model=SpellSchema)
 def get_spell_by_id(_id: str):
     result = retrieve_spell(_id=_id)
     if result is None:
@@ -42,8 +34,7 @@ def create_spells_from_file(file: UploadFile = File(...)):
         json_str += line.decode("utf-8")
 
     loaded_json = json.loads(json_str)
-    # print(loaded_json["spell"])
-    created_json = insert_spells(loaded_json["spell"])
+    created_json = insert_spells(loaded_json)
 
     if len(created_json.inserted_ids) <= 0:
         HTTPException(status_code=500, detail="Unable to insert JSON")
@@ -51,7 +42,7 @@ def create_spells_from_file(file: UploadFile = File(...)):
     return
 
 
-@router.post("/spells/", response_model=SpellData)
+@router.post("/spells/", response_model=SpellSchema)
 def create_spell(spell: dict):
     print(spell)
     result = insert_spell(spell)
@@ -68,7 +59,7 @@ def delete_spell_by_id(_id: str):
     return None
 
 
-@router.put("/spells/{_id}/", response_model=SpellData)
+@router.put("/spells/{_id}/", response_model=SpellSchema)
 def update_spell_by_object(_id: str, spell: dict):
     update_spell(spell=spell)
     return get_spell_by_id(_id)

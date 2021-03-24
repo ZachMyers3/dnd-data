@@ -9,6 +9,9 @@ from typing import Any, Dict, List, Optional, Union
 
 from pydantic import BaseModel, Field, conint
 
+from .PyObjectId import PyObjectId
+from bson import ObjectId
+
 
 class Dependencies(BaseModel):
     monster: Optional[List[str]] = None
@@ -2223,6 +2226,7 @@ class EntrySpellcasting(Entry1):
 
 
 class SpellData(BaseModel):
+    object_id: Optional[PyObjectId] = Field(alias="_id")
     name: Optional[str] = None
     level: Optional[int] = None
     school: Optional[School] = None
@@ -2261,6 +2265,10 @@ class SpellData(BaseModel):
     scalingLevelDice: Optional[Union[List[Any], ScalingLevelDiceItem]] = None
     hasFluff: Optional[bool] = None
     hasFluffImages: Optional[bool] = None
+
+    class Config:
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
 
 
 class EntryDataTrapHazard(BaseModel):
@@ -2496,3 +2504,4 @@ CreatureData.update_forward_refs()
 EntryDataTrapHazard.update_forward_refs()
 EntryDataObject.update_forward_refs()
 DataDamImmuneItem1.update_forward_refs()
+SpellData.update_forward_refs()
